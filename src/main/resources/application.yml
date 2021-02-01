@@ -1,0 +1,24 @@
+
+app:
+  name: @project.name@
+  description: @project.description@
+  version: @project.version@
+
+spring:
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASS}
+
+  flyway:
+    default-schema: core
+    schemas:
+      - core
+      - planner
