@@ -9,8 +9,7 @@ import javax.validation.constraints.NotEmpty;
 public class NovoUsuarioDTO {
     @NotEmpty
     private String nome;
-    @NotEmpty
-    @Email
+    @NotEmpty @Email
     private String email;
     @NotEmpty
     private String senha;

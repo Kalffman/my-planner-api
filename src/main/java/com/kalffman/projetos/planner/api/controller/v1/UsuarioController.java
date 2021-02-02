@@ -27,8 +27,8 @@ public class UsuarioController {
     }
 
     @GetMapping(value = "/{id}", produces = "application/json")
-    public ResponseEntity<?> getByID(@PathVariable Long idUsuario) {
-        UsuarioSimpleDTO simpleDTO = service.getById(idUsuario);
+    public ResponseEntity<?> getByID(@PathVariable Long id) {
+        UsuarioSimpleDTO simpleDTO = service.getById(id);
 
         return ResponseEntity.created(simpleDTO.location()).body(simpleDTO);
     }
