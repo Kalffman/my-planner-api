@@ -1,0 +1,18 @@
+spring:
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db_test
+    username: sa
+    password: sa
+
+  flyway:
+    default-schema: core
+    schemas:
+      - core
+      - planner

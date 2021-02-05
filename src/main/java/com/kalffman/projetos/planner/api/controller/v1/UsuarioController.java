@@ -4,6 +4,7 @@ import com.kalffman.projetos.planner.api.dto.NovoUsuarioDTO;
 import com.kalffman.projetos.planner.api.dto.ResourceModel;
 import com.kalffman.projetos.planner.api.dto.UsuarioSimpleDTO;
 import com.kalffman.projetos.planner.domain.service.UsuarioService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/v1/usuarios")
+@Slf4j
 public class UsuarioController {
 
     private final UsuarioService service;
