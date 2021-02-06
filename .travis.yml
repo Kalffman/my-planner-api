@@ -1,0 +1,24 @@
+env:
+  - DOCKER_IMAGE=$IMAGE_REGISTRY_HOST/$REGISTRY_USER/my-planner-api
+
+os: linux
+language: java
+jdk: "11"
+
+services:
+  - docker
+
+install:
+  - ./mvnw install
+
+before_script:
+  - ./mvnw test -B
+
+script:
+  - ./mvnw package
+  - docker --version
+  - docker build -t "$DOCKER_IMAGE" .
+
+after_script:
+  - echo "$REGISTRY_PASS" | docker login -u "$REGISTRY_USER" --password-stdin
+  - docker push "$DOCKER_IMAGE"

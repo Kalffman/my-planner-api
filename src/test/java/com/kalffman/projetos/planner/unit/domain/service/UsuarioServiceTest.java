@@ -1,10 +1,11 @@
-package com.kalffman.projetos.planner.domain.service;
+package com.kalffman.projetos.planner.unit.domain.service;
 
 import com.kalffman.projetos.planner.api.dto.NovoUsuarioDTO;
 import com.kalffman.projetos.planner.api.dto.UsuarioSimpleDTO;
 import com.kalffman.projetos.planner.core.mapper.MapperConfig;
 import com.kalffman.projetos.planner.domain.entity.Usuario;
 import com.kalffman.projetos.planner.domain.repository.UsuarioRepository;
+import com.kalffman.projetos.planner.domain.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,5 +1,6 @@
-package com.kalffman.projetos.planner.api.controller.v1;
+package com.kalffman.projetos.planner.unit.api.controller.v1;
 
+import com.kalffman.projetos.planner.api.controller.v1.UsuarioController;
 import com.kalffman.projetos.planner.api.dto.NovoUsuarioDTO;
 import com.kalffman.projetos.planner.api.dto.UsuarioSimpleDTO;
 import com.kalffman.projetos.planner.domain.service.UsuarioService;
