@@ -21,11 +21,11 @@ script:
   - ./mvnw test -B
 
 after_script:
+  - echo "$REGISTRY_PASS" | docker login "$REGISTRY_HOST" -u "$REGISTRY_USER" --password-stdin
+
+after_success:
   - ./mvnw package
   - docker build -t "$DOCKER_IMAGE" .
   - docker tag "$DOCKER_IMAGE" "$DOCKER_IMAGE_SNAPSHOT"
-
-after_success:
-  - echo "$REGISTRY_PASS" | docker login "$REGISTRY_HOST" -u "$REGISTRY_USER" --password-stdin
   - docker push "$DOCKER_IMAGE"
   - docker push "$DOCKER_IMAGE_SNAPSHOT"
