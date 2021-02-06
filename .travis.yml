@@ -8,8 +8,14 @@ env:
     - DOCKER_IMAGE="$REGISTRY_HOST/$REGISTRY_USER/my-planner-api:$TRAVIS_BRANCH"
     - DOCKER_IMAGE_SNAPSHOT="$DOCKER_IMAGE-$(date +%Y%m%d%H%M%S)"
 
+before_install:
+  - chmod +x ./mvnw
+
 install:
   - ./mvnw install
+
+before_script:
+  - chmod +x ./mvnw
 
 script:
   - ./mvnw test -B
