@@ -10,11 +10,12 @@
     </parent>
     <groupId>com.kalffman.projetos</groupId>
     <artifactId>planner</artifactId>
-    <version>1.0.0</version>
+    <version>v1.0.0</version>
     <name>planner</name>
     <description>Planner API</description>
     <properties>
         <java.version>11</java.version>
+        <type>unit</type>
     </properties>
     <dependencies>
         <!--    DEP SPRING    -->
@@ -105,6 +106,15 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>com.kalffman.projetos.planner.${type}.**.*Test.java</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>

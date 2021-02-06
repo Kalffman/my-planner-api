@@ -1,0 +1,29 @@
+os: linux
+language: java
+jdk: openjdk11
+services:
+  - docker
+env:
+  global:
+    - DOCKER_IMAGE="$REGISTRY_HOST/$REGISTRY_USER/my-planner-api:$TRAVIS_BRANCH"
+    - DOCKER_IMAGE_SNAPSHOT="$DOCKER_IMAGE-$(date +%Y%m%d%H%M%S)"
+
+before_install:
+  - chmod +x ./mvnw
+
+install:
+  - ./mvnw install
+
+before_script:
+  - chmod +x ./mvnw
+
+script:
+  - ./mvnw test -B
+
+after_success:
+  - ./mvnw package -Dmaven.test.skip=true
+  - docker build -t "$DOCKER_IMAGE" .
+  - docker tag "$DOCKER_IMAGE" "$DOCKER_IMAGE_SNAPSHOT"
+  - echo "$REGISTRY_PASS" | docker login "$REGISTRY_HOST" -u "$REGISTRY_USER" --password-stdin
+  - docker push "$DOCKER_IMAGE"
+  - docker push "$DOCKER_IMAGE_SNAPSHOT"
