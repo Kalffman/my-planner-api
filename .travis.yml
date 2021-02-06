@@ -4,8 +4,9 @@ jdk: openjdk11
 services:
   - docker
 env:
-  - DOCKER_IMAGE="$REGISTRY_HOST/$REGISTRY_USER/my-planner-api:$TRAVIS_BRANCH"
-  - DOCKER_IMAGE_SNAPSHOT="$DOCKER_IMAGE-$(date +%Y%m%d%H%M%S)"
+  global:
+    - DOCKER_IMAGE="$REGISTRY_HOST/$REGISTRY_USER/my-planner-api:$TRAVIS_BRANCH"
+    - DOCKER_IMAGE_SNAPSHOT="$DOCKER_IMAGE-$(date +%Y%m%d%H%M%S)"
 
 install:
   - ./mvnw install
