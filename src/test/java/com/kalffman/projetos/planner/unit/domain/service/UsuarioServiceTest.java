@@ -1,9 +1,11 @@
 package com.kalffman.projetos.planner.unit.domain.service;
 
 import com.kalffman.projetos.planner.api.dto.NovoUsuarioDTO;
+import com.kalffman.projetos.planner.api.dto.NovoUsuarioTelegramDTO;
 import com.kalffman.projetos.planner.api.dto.UsuarioSimpleDTO;
 import com.kalffman.projetos.planner.core.mapper.MapperConfig;
 import com.kalffman.projetos.planner.domain.entity.Usuario;
+import com.kalffman.projetos.planner.domain.entity.plugin.ChatTelegram;
 import com.kalffman.projetos.planner.domain.repository.UsuarioRepository;
 import com.kalffman.projetos.planner.domain.service.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +49,6 @@ public class UsuarioServiceTest {
         assertEquals(resultadoEsperado.getEmail(), resultadoGerado.getEmail());
         assertEquals(resultadoEsperado.getSenha(), resultadoGerado.getSenhaEncriptada());
     }
-
 
     private NovoUsuarioDTO novoUsuarioDTOFake() {
         return novoUsuarioDTOEsperado();
@@ -110,5 +111,49 @@ public class UsuarioServiceTest {
         usuario.setDataHoraCriacao(LocalDateTime.now());
 
         return Optional.of(usuario);
+    }
+
+    @Test
+    public void deve_retornar_UsuarioSimpleDTO_ao_criar_novo_usuario_telegram() {
+        NovoUsuarioTelegramDTO resultadoEsperado = novoUsuarioTelegramDTOEsperado();
+
+        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioGeradoTelegramFake());
+
+        UsuarioSimpleDTO resultadoGerado = usuarioService.novoUsuario(novoUsuarioTelegramDTOFake());
+
+        assertNotNull(resultadoGerado);
+        assertEquals(resultadoEsperado.getNomeCompleto(), resultadoGerado.getNome());
+    }
+
+    private NovoUsuarioTelegramDTO novoUsuarioTelegramDTOEsperado() {
+        return novoUsuarioTelegramDTOFake();
+    }
+
+    private NovoUsuarioTelegramDTO novoUsuarioTelegramDTOFake() {
+        NovoUsuarioTelegramDTO dto = new NovoUsuarioTelegramDTO();
+        dto.setChatId(123456L);
+        dto.setUsuarioTelegram("@SamiraPlannerBot");
+        dto.setPrimeiroNome("Samira");
+        dto.setSobrenome("Braba");
+        dto.setNomeCompleto("Samira Braba das Braba");
+        dto.setApelido("braba");
+        return dto;
+    }
+
+    private Usuario usuarioGeradoTelegramFake() {
+        ChatTelegram chat = new ChatTelegram();
+        chat.setId(123456L);
+        chat.setUsuarioTelegram("@SamiraPlannerBot");
+        chat.setUsuarioPrimeiroNome("Samira");
+        chat.setUsuarioSobrenome("Braba");
+        chat.setUsuarioNomeCompleto("Samira Braba das Braba");
+        chat.setUsuarioApelido("braba");
+
+        Usuario usuario = new Usuario();
+        usuario.setNome(chat.getUsuarioNomeCompleto());
+        usuario.setDataHoraCriacao(LocalDateTime.now());
+        usuario.addChatTelegram(chat);
+
+        return usuario;
     }
 }

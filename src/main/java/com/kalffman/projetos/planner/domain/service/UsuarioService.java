@@ -1,6 +1,7 @@
 package com.kalffman.projetos.planner.domain.service;
 
 import com.kalffman.projetos.planner.api.dto.NovoUsuarioDTO;
+import com.kalffman.projetos.planner.api.dto.NovoUsuarioTelegramDTO;
 import com.kalffman.projetos.planner.api.dto.UsuarioSimpleDTO;
 import com.kalffman.projetos.planner.domain.entity.Usuario;
 import com.kalffman.projetos.planner.domain.repository.UsuarioRepository;
@@ -21,6 +22,14 @@ public class UsuarioService {
     }
 
     public UsuarioSimpleDTO novoUsuario(NovoUsuarioDTO dto) {
+        Usuario novoUsuario = mapper.map(dto, Usuario.class);
+
+        Usuario usuarioCriado = repository.save(novoUsuario);
+
+        return mapper.map(usuarioCriado, UsuarioSimpleDTO.class);
+    }
+
+    public UsuarioSimpleDTO novoUsuario(NovoUsuarioTelegramDTO dto) {
         Usuario novoUsuario = mapper.map(dto, Usuario.class);
 
         Usuario usuarioCriado = repository.save(novoUsuario);
