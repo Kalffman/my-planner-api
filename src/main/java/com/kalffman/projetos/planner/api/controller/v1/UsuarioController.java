@@ -1,6 +1,7 @@
 package com.kalffman.projetos.planner.api.controller.v1;
 
 import com.kalffman.projetos.planner.api.dto.NovoUsuarioDTO;
+import com.kalffman.projetos.planner.api.dto.NovoUsuarioTelegramDTO;
 import com.kalffman.projetos.planner.api.dto.ResourceModel;
 import com.kalffman.projetos.planner.api.dto.UsuarioSimpleDTO;
 import com.kalffman.projetos.planner.domain.service.UsuarioService;
@@ -28,6 +29,15 @@ public class UsuarioController {
 
     @PostMapping(value = "/registrar", produces = "application/json")
     public ResponseEntity<?> registrar(@RequestBody @Valid NovoUsuarioDTO dto) {
+        UsuarioSimpleDTO simpleDTO = service.novoUsuario(dto);
+
+        buildLinks(simpleDTO);
+
+        return new ResponseEntity<>(simpleDTO, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/registrar/telegram", produces = "application/json")
+    public ResponseEntity<?> registrarTelegram(@RequestBody @Valid NovoUsuarioTelegramDTO dto) {
         UsuarioSimpleDTO simpleDTO = service.novoUsuario(dto);
 
         buildLinks(simpleDTO);
